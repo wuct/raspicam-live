@@ -1,16 +1,17 @@
 var io = require('../node_modules/socket.io-client/socket.io.js');
 var ss = require('../node_modules/socket.io-stream/socket.io-stream.js');
 // console.log(ss.createStream)
-var socket = io.connect('http://local.host:3000/stream');
+var socket = io.connect('http://local.host:3000/stream', { query: "type=web" });
 var canvas = document.getElementById('canvas');
 canvas.width = 640;
 canvas.height = 640;
 var ctx = canvas.getContext('2d');
 
-ss(socket).on('server:emitImage', function (stream) {
+ss(socket).on('server:emitImage', function (stream, data) {
+	// console.log('received strem', data);
 	var buf = [];
 	stream.on('data', function (chunk) {
-		console.log('data');
+		// console.log('data');
 		buf.push(chunk);
 		drawBuf(buf);
 	});

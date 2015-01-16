@@ -3,33 +3,27 @@ var io = require('socket.io').listen(3000);
 var ss = require('socket.io-stream');
 var path = require('path');
 
-io
-.of('/stream')
+var webUserSockets = [];
+
+io.of('/stream')
 .on('connection', function(socket) {
 
-	console.log('connected.');
-	ss(socket).on('profile-image', function(stream, data) {
-		console.log('receiving file.')
-		var filename = path.basename(data.name);
-		stream.pipe(fs.createWriteStream(filename));
-	});
-
-	var imgs = ['test1.jpg', 'test2.jpg'];
-	var i = 0;
-	// emit image stream
-	function emitImage() {
-		console.log('server:emitImage ' + imgs[i]);
-		i = i^1;
-		var stream = ss.createStream();
-		fs.createReadStream(imgs[i]).pipe(stream);
-		ss(socket).emit('server:emitImage', stream, { name: imgs[i] });
+	// register web user
+	if ( 'web' === socket.handshake.query.type) {
+		webUserSockets.push(socket);
 	}
 
-	emitImage();
-	var interval = setInterval(emitImage, 10000);
+	ss(socket).on('client:emitImage', function (incomingStream, data) {
+		// console.log('receiving stream.' + data.name);
+		// emit to all web users
+		webUserSockets.forEach(function (socket) {
+			var outgoingStream = ss.createStream();
+			ss(socket).emit('server:emitImage', outgoingStream, { name: data.name, from: 'client' });
+			incomingStream.pipe(outgoingStream);
+		});
+	});
 
 	socket.on('disconnect', function() {
 		console.log('disconnected.');
-		clearInterval(interval);
 	});
-})
+});
