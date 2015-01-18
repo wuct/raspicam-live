@@ -4,12 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack",
+    "dev": "webpack-dev-server -c"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "bootstrap": "^3.3.1",
+    "react": "^0.12.2",
     "socket.io-client": "^1.2.1",
     "socket.io-stream": "^0.6.0"
+  },
+  "devDependencies": {
+    "jsx-loader": "^0.12.2"
   }
 }
