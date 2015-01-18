@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "raspicam": "^0.2.13",
     "socket.io-client": "^1.2.1",
     "socket.io-stream": "^0.6.0"
   }

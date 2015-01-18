@@ -1,6 +1,29 @@
 var fs = require('fs');
 var ss = require('socket.io-stream');
 
+var camera = new require("raspicam")({
+	mode: 'photo',
+	width: 640,
+	height: 640,
+	output: "./image.jpg",
+	encoding: "jpg",
+	timeout: 0,
+});
+camera.on("started", function( err, timestamp ){
+	console.log("photo started at " + timestamp );
+});
+
+camera.on("read", function( err, timestamp, filename ){
+	console.log("photo image captured with filename: " + filename );
+});
+
+camera.on("exit", function( timestamp ){
+	console.log("photo child process has exited at " + timestamp );
+});
+
+camera.start();
+
+return;
 var SERVER_URL = process.env.SERVER_URL || 'http://local.host:3000';
 var socket = require('socket.io-client')(SERVER_URL + '/stream', {
 		query: "type=client",
