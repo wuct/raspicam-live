@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "socket.io": "^1.2.1",
     "socket.io-client": "^1.2.1",
     "socket.io-stream": "^0.6.0"
   }
