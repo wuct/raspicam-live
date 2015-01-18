@@ -2,20 +2,31 @@ var fs = require('fs');
 var io = require('socket.io-client');
 var ss = require('socket.io-stream');
 
-var socket = io.connect('http://local.host:3000/stream', { query: "type=client" });
-var stream = ss.createStream();
+var SERVER_URL = process.env.SERVER_URL || 'http://local.host:3000';
+var socket = io(SERVER_URL + '/stream', { query: "type=client" });
 
-var imgs = ['test1.jpg', 'test2.jpg'];
-var i = 0;
-
-// emit image stream
-function emitImage() {
-	console.log('server:emitImage ' + imgs[i]);
-	i = i^1;
+socket.on('connect_error', function(){
+	console.log('Connection Failed');
+});
+socket.on('disconnect', function () {
+	console.log('Disconnected');
+});
+socket.on('connect', function(){
+	console.log('Connected');
 	var stream = ss.createStream();
-	fs.createReadStream(imgs[i]).pipe(stream);
-	ss(socket).emit('client:emitImage', stream, { name: imgs[i] });
-}
 
-emitImage();
-var interval = setInterval(emitImage, 1000);
+	var imgs = ['test1.jpg', 'test2.jpg'];
+	var i = 0;
+
+	// emit image stream
+	function emitImage() {
+		console.log('client:emitImage ' + imgs[i]);
+		i = i^1;
+		var stream = ss.createStream();
+		fs.createReadStream(imgs[i]).pipe(stream);
+		ss(socket).emit('client:emitImage', stream, { name: imgs[i] });
+	}
+
+	emitImage();
+	var interval = setInterval(emitImage, 1000);
+});

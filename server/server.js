@@ -7,8 +7,8 @@ var webUserSockets = [];
 
 io.of('/stream')
 .on('connection', function(socket) {
-
 	// register web user
+	// console.log(socket.handshake.query);
 	if ( 'web' === socket.handshake.query.type) {
 		webUserSockets.push(socket);
 	}
