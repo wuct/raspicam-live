@@ -6,19 +6,21 @@ var camera = new require("raspicam")({
 	width: 640,
 	height: 640,
 	output: "./image.jpg",
-	encoding: "jpg",
 	timeout: 0,
 });
-camera.on("started", function( err, timestamp ){
+camera.on("start", function (err, timestamp ){
 	console.log("photo started at " + timestamp );
 });
 
-camera.on("read", function( err, timestamp, filename ){
+camera.on("read", function (err, timestamp, filename ){
 	console.log("photo image captured with filename: " + filename );
 });
 
-camera.on("exit", function( timestamp ){
+camera.on("exit", function (timestamp ){
 	console.log("photo child process has exited at " + timestamp );
+	camera.stop(function (err, timestamp) {
+		console.log("photo stopped at " + timestamp );
+	})
 });
 
 camera.start();
