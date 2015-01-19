@@ -2,11 +2,12 @@ var fs = require('fs');
 var ss = require('socket.io-stream');
 
 var camera = new require("raspicam")({
-	mode: 'photo',
+	mode: 'timelapse',
 	width: 640,
 	height: 640,
-	output: "./image.jpg",
-	timeout: 0,
+	output: "./temp/image_%06d.jpg",
+	timelapse: 30,
+	timeout: 1000,
 });
 camera.on("start", function (err, timestamp ){
 	console.log("photo started at " + timestamp );
@@ -21,6 +22,9 @@ camera.on("exit", function (timestamp ){
 	camera.stop(function (err, timestamp) {
 		console.log("photo stopped at " + timestamp );
 	})
+});
+camera.on("stop", function (err, timestamp){
+	console.log("timelapse child process has been stopped at " + timestamp);
 });
 
 camera.start();
