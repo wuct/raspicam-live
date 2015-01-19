@@ -18,31 +18,40 @@ app.get('/dist/bundle.js', function (req, res) {
 
 
 
-var ss = require('socket.io-stream');
+// var ss = require('socket.io-stream');
 // TODO: handle 11 listner
-var webUserSockets = [];
+// var webUserSockets = [];
 
-io.of('/stream')
-.on('connection', function (socket) {
+var nsp = io.of('/stream');
+nsp.on('connection', function (socket) {
 	// register web user
 	console.log(socket.handshake.query);
 	if ( 'web' === socket.handshake.query.type) {
-		socket.indexOfSockets = webUserSockets.length;
-		webUserSockets.push(socket);
+		// socket.indexOfSockets = webUserSockets.length;
+		// webUserSockets.push(socket);
+		socket.join('web');
 	}
 
-	ss(socket).on('client:emitImage', function (incomingStream, data) {
-		console.log('receiving stream.' + data.name);
-		// emit to all web users
-		webUserSockets.forEach(function (socket) {
-			var outgoingStream = ss.createStream();
-			ss(socket).emit('server:emitImage', outgoingStream, { name: data.name, from: 'client' });
-			incomingStream.pipe(outgoingStream);
-		});
+	// ss(socket).on('client:emitImage', function (incomingStream, data) {
+	// 	// console.log('receiving stream.' + data.name);
+	// 	// emit to all web users
+	// 	// webUserSockets.forEach(function (socket) {
+	// 	// 	console.log('emit to ', socket.indexOfSockets);
+	// 		var outgoingStream = ss.createStream();
+	// 		ss(socket).emit('server:emitImage', outgoingStream, { name: data.name, from: 'client' });
+	// 		incomingStream.pipe(outgoingStream);
+	// 	// });
+	// });
+	socket.on('client:emitImage', function (data) {
+		console.log('receiving')
+		// console.log(data);
+		nsp.to('web').emit('server:emitImage', data);
 	});
 
 	socket.on('disconnect', function() {
 		console.log('disconnected.');
-		webUserSockets.splice(socket.indexOfSockets, 1);
+		if ( 'web' === socket.handshake.query.type) {
+			// webUserSockets.splice(socket.indexOfSockets, 1);
+		}
 	});
 });

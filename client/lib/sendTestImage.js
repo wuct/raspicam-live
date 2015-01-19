@@ -13,10 +13,18 @@ module.exports = function (socket, interval) {
 	function emitImage() {
 		// console.log('client:emitImage ' + imgs[i]);
 		i = i^1;
-		var stream = ss.createStream();
-		fs.createReadStream(imgs[i]).pipe(stream);
-		ss(socket).emit('client:emitImage', stream, { name: imgs[i] });
+		// var stream = ss.createStream();
+		// fs.createReadStream(imgs[i]).pipe(stream);
+		// ss(socket).emit('client:emitImage', stream, { name: imgs[i] });
+		fs.readFile(imgs[i], function (err, buf) {
+			if (err) return console.log(err);
+			socket.emit('client:emitImage', {
+				name: imgs[i],
+				buf: buf
+			});
+		});
 	};
+
 	emitImage();
 	var interval = setInterval(emitImage, interval || 1000);
 };
