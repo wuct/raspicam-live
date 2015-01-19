@@ -1,7 +1,6 @@
 var fs = require('fs');
 var ss = require('socket.io-stream');
 
-return;
 var SERVER_URL = process.env.SERVER_URL || 'http://local.host:3000';
 var socket = require('socket.io-client')(SERVER_URL + '/stream', {
 		query: "type=client",
@@ -35,6 +34,11 @@ socket.on('connect', function(){
 	// var interval = setInterval(emitImage, 1000);
 
 	// init camera
+	startCamera();
+
+});
+
+function startCamera() {
 	var camera = new require("raspicam")({
 		mode: 'timelapse',
 		width: 640,
@@ -51,8 +55,9 @@ socket.on('connect', function(){
 	});
 
 	camera.on("read", function (err, timestamp, filename ){
-		if (/~$/.test(filename)) return;
 		console.log("photo image captured with filename: " + filename );
+		if (/~$/.test(filename)) return;
+
 		var stream = ss.createStream();
 		fs.createReadStream('./temp/' + filename).pipe(stream);
 		ss(socket).emit('client:emitImage', stream, { name: imgs[i] });
@@ -69,4 +74,6 @@ socket.on('connect', function(){
 	});
 
 	camera.start();
-});
+};
+
+startCamera();
