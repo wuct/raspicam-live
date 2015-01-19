@@ -74,7 +74,7 @@ socket.on('connect', function(){
 	// var interval = setInterval(emitImage, 1000);
 
 	// init camera
-	// startCamera();
+	startCamera();
 
 });
 

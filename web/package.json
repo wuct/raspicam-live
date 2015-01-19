@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack",
-    "dev": "webpack-dev-server -c"
+    "dev": "webpack-dev-server -c",
+    "clean": "rm -r -f web/dist/*",
+    "build": "npm run clean && webpack"
   },
   "author": "",
   "license": "MIT",
@@ -17,6 +18,7 @@
     "socket.io-stream": "^0.6.0"
   },
   "devDependencies": {
-    "jsx-loader": "^0.12.2"
+    "jsx-loader": "^0.12.2",
+    "webpack": "^1.5.1"
   }
 }

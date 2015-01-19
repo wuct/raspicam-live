@@ -4,11 +4,15 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server",
+    "prestart": "cd ../web && npm run build"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.11.0",
+    "httpster": "^1.0.1",
     "socket.io": "^1.2.1",
     "socket.io-client": "^1.2.1",
     "socket.io-stream": "^0.6.0"
