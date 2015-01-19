@@ -16,7 +16,7 @@ function startCamera() {
 		timelapse: 0,
 		timeout: 0,
 		burst: true,
-		mode: 1
+		//mode: 1 // bug 
 
 	});
 	camera.on("start", function (err, timestamp ){
@@ -26,10 +26,10 @@ function startCamera() {
 	camera.on("read", function (err, timestamp, filename ){
 		console.log("photo image captured with filename: " + filename );
 		if (/~$/.test(filename)) return;
-		
-		// var stream = ss.createStream();
-		// fs.createReadStream('./temp/' + filename).pipe(stream);
-		// ss(socket).emit('client:emitImage', stream, { name: imgs[i] });
+
+		var stream = ss.createStream();
+		fs.createReadStream('./temp/' + filename).pipe(stream);
+		ss(socket).emit('client:emitImage', stream, { name: filename });
 	});
 
 	camera.on("exit", function (timestamp ){
@@ -45,7 +45,7 @@ function startCamera() {
 	camera.start();
 };
 
-startCamera();
+// startCamera();
 
 socket.on('connect_error', function(){
 	console.log('Connection Failed');
