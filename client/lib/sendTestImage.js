@@ -1,5 +1,4 @@
 var fs = require('fs');
-var ss = require('socket.io-stream');
 var path = require('path');
 
 
@@ -13,12 +12,10 @@ module.exports = function (socket, interval) {
 	function emitImage() {
 		// console.log('client:emitImage ' + imgs[i]);
 		i = i^1;
-		// var stream = ss.createStream();
-		// fs.createReadStream(imgs[i]).pipe(stream);
-		// ss(socket).emit('client:emitImage', stream, { name: imgs[i] });
+
 		fs.readFile(imgs[i], function (err, buf) {
 			if (err) return console.log(err);
-			socket.emit('client:emitImage', {
+			socket.emit('client:emitFrame', {
 				name: imgs[i],
 				buf: buf
 			});

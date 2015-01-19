@@ -1,6 +1,5 @@
 var React = require('react');
 var io = require('socket.io-client');
-var ss = require('socket.io-stream');
 
 var VideoPlayer = require('./VideoPlayer.jsx');
 
@@ -19,24 +18,10 @@ var App = React.createClass({
 			transports: ['websocket']
 		});
 
-		socket.on('server:emitImage', function (data) {
-			console.log('received data', data);
+		socket.on('server:emitFrame', function (data) {
+			// console.log('received data', data);
 			that.setState({ buf: data.buf });
 		});
-		// ss(socket).on('server:emitImage', function (stream, data) {
-		// 	// console.log('received strem');
-		// 	var buf = [];
-		// 	stream.on('data', function (chunk) {
-		// 		// console.log('data: ', chunk.length);
-		// 		buf.push(chunk);
-		// 	});
-		// 	stream.on('end', function () {
-		// 		// console.log('finish');
-		// 		that.setState({
-		// 			buf: buf
-		// 		})
-		// 	});
-		// });
 	},
 
 	render: function() {
