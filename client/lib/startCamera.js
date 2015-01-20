@@ -6,8 +6,9 @@ function startCamera(socket) {
 		width: 640,
 		height: 640,
 		output: "./temp/image.jpg",
-		timelapse: 0,
-		timeout: 0,
+		timelapse: 100,
+		timeout: 9999999,
+		quality: 10,
 		burst: true,
 		//mode: 1 // bug 
 
@@ -23,7 +24,7 @@ function startCamera(socket) {
 		fs.readFile('./temp/' + filename, function (err, buf) {
 			if (err) return console.log(err);
 			socket.emit('client:emitFrame', {
-				name: imgs[i],
+				name: filename,
 				buf: buf
 			});
 		});
