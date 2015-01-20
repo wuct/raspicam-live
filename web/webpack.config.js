@@ -2,7 +2,7 @@ module.exports = {
 	context: __dirname + "/src",
 	entry: "./entry.js",
 	output: {
-		publicPath: "/dist",
+		publicPath: "http://local.host:8080/dist/",
 		path: __dirname + "/dist",
 		filename: "bundle.js"
 	},

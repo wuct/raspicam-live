@@ -2,20 +2,31 @@
 var port = process.env.PORT || 3000
 var app = require('express')();
 var server = require('http').Server(app);
-var io = require('socket.io')(server);
 var path = require('path');
+var fs = require('fs');
+var ejs = require('ejs');
 
 server.listen(port, function() {
 	console.log('Socket.io server started on port %s.', port);
 });
 
+// render index.html
+var indexHtml = ejs.render(fs.readFileSync('index.ejs', { encoding: 'utf-8' }), {
+	pathToBundle: process.env.NODE_ENV !== 'dev'
+		? '/dist/bundle.js'
+		: 'http://local.host:8080/dist/bundle.js'
+});
+
 app.get('/', function (req, res) {
-	res.sendFile(path.resolve('./../web/index.html'));
+	res.send(indexHtml);
 });
 app.get('/dist/bundle.js', function (req, res) {
 	res.sendFile(path.resolve('./../web/dist/bundle.js'));
 });
 
+
+// socket.io setup
+var io = require('socket.io')(server);
 var nsp = io.of('/stream');
 nsp.on('connection', function (socket) {
 	// register web user

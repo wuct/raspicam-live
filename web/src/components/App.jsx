@@ -27,7 +27,7 @@ var App = React.createClass({
 	render: function() {
 		return (
 			<div>
-				<h1>Raspicam Live</h1>
+				<h1>Raspicam Live Beta</h1>
 				<VideoPlayer buf={this.state.buf} />
 			</div>
 		);

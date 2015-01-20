@@ -18,7 +18,7 @@ socket.on('disconnect', function () {
 });
 socket.on('connect', function(){
 	console.log('Connected.');
-	if (TEST_MODE) return require('./lib/sendTestImage')(socket, TEST_INTERVAL);
+	if (TEST_MODE) return require('./lib/sendTestFrame')(socket, TEST_INTERVAL);
 	// init camera
 	require('./lib/startCamera')(socket);
 });

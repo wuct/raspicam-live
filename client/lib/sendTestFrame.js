@@ -8,7 +8,7 @@ module.exports = function (socket, interval) {
 		path.resolve(__dirname + '/test2.jpg'),
 	];
 	var i = 1;
-	console.log('start emitting images for testing...');	
+	console.log('start emitting test frames ...');	
 	function emitImage() {
 		// console.log('client:emitImage ' + imgs[i]);
 		i = i^1;

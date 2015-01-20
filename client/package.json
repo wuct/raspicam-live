@@ -5,7 +5,8 @@
   "main": "client.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node client.js"
+    "start": "node client.js",
+    "start:testMode": "node client.js test"
   },
   "author": "",
   "license": "ISC",
