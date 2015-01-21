@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack-dev-server -c --inline",
     "clean": "rm -r -f web/dist/*",
-    "build": "npm run clean && webpack",
+    "build:bundle": "npm run clean && webpack",
     "start": "node server/server",
     "start:watch": "parallelshell 'NODE_ENV=dev node server/server' 'npm run dev'"
     
