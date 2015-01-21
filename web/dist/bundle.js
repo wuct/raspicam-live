@@ -61,12 +61,11 @@
 			}
 		},
 		componentDidMount: function() {
-			var serverPort = window.serverPort || 3000;
 			console.log('start listen on %s.', serverPort);
 			var that = this;
 			
 			// sockei.io setup
-			var socket = io('/stream', {
+			var socket = io(':'+serverPort+'/stream', {
 				query: "type=web",
 				transports: ['websocket']
 			});

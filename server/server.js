@@ -14,6 +14,7 @@ server.listen(port, function() {
 // render index.html
 var template = fs.readFileSync(path.resolve(__dirname + '/index.ejs'), { encoding: 'utf-8' });
 var indexHtml = ejs.render(template, {
+	env: process.env.NODE_ENV,
 	port: port,
 	pathToBundle: process.env.NODE_ENV !== 'dev'
 		? '/dist/bundle.js'
