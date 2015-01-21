@@ -9,11 +9,11 @@ var App = React.createClass({
 		}
 	},
 	componentDidMount: function() {
-		console.log('start listen on %s.', serverPort);
+		console.log('start listen on %s.', socketServerUrl);
 		var that = this;
-		
+			
 		// sockei.io setup
-		var socket = io(':'+serverPort+'/stream', {
+		var socket = io(socketServerUrl, {
 			query: "type=web",
 			transports: ['websocket']
 		});
