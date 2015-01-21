@@ -1,18 +1,7 @@
 var fs = require('fs');
 
 function startCamera(socket) {
-	var camera = new require("raspicam")({
-		mode: 'photo',
-		width: 640,
-		height: 640,
-		output: "./temp/image.jpg",
-		timelapse: 100,
-		timeout: 9999999,
-		quality: 10,
-		burst: true,
-		//mode: 1 // bug 
-
-	});
+	var camera = new require("raspicam")(require('../camera.config'));
 	camera.on("start", function (err, timestamp ){
 		console.log("photo started at " + timestamp );
 	});

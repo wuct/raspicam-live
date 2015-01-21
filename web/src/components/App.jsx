@@ -18,9 +18,10 @@ var App = React.createClass({
 			transports: ['websocket']
 		});
 
-		socket.on('server:emitFrame', function (data) {
+		socket.on('server:emitFrame', function (data, done) {
 			// console.log('received data', data);
 			that.setState({ buf: data.buf });
+			done();
 		});
 	},
 

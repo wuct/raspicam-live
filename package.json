@@ -33,11 +33,13 @@
     "npm": "2.2.x"
   },
   "dependencies": {
-    "socket.io": "^1.2.1",
-    "socket.io-client": "^1.2.1",
-    "express": "^4.11.0",
     "ejs": "^2.2.1",
-    "react": "^0.12.2"
+    "express": "^4.11.0",
+    "lodash.findindex": "^2.4.1",
+    "raspicam": "^0.2.13",
+    "react": "^0.12.2",
+    "socket.io": "^1.2.1",
+    "socket.io-client": "^1.2.1"
   },
   "devDependencies": {
     "jsx-loader": "^0.12.2",

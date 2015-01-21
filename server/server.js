@@ -5,6 +5,7 @@ var server = require('http').Server(app);
 var path = require('path');
 var fs = require('fs');
 var ejs = require('ejs');
+var findIndex = require('lodash.findindex');
 
 server.listen(port, function() {
 	console.log('Socket.io server started on port %s.', port);
@@ -30,29 +31,36 @@ app.get('/dist/bundle.js', function (req, res) {
 // socket.io setup
 var io = require('socket.io')(server);
 var nsp = io.of('/stream');
-var isEmitting = false;
-var numOfSkipFrames = 0;
+var webSockets = [];
 nsp.on('connection', function (socket) {
-	// register web user
 	console.log(socket.handshake.query);
+	
+	// register web user
 	if ( 'web' === socket.handshake.query.type) {
-		socket.join('web');
+		socket.isEmitting = false;
+		socket.numOfSkipFrames = 0;
+		webSockets.push(socket);
 	}
 
 	socket.on('client:emitFrame', function (data) {
 		// console.log('received.');
-		// console.log(data);
-		// nsp.to('web').emit('server:emitFrame', data);
-		if (isEmitting) return numOfSkipFrames++;
-		isEmitting = true;
-		process.nextTick(function() {
-			nsp.to('web').emit('server:emitFrame', data);
-			isEmitting = false;
-			console.log('has skipped ' + numOfSkipFrames + ' frames.');
+		webSockets.forEach(function (socket) {
+			if (socket.isEmitting) return socket.numOfSkipFrames++;
+			socket.isEmitting = true;
+			socket.emit('server:emitFrame', data, function() {
+				console.log('%s has skipped %s frames.', socket.id, socket.numOfSkipFrames);
+				socket.isEmitting = false;
+				socket.numOfSkipFrames = 0;
+			});
 		});
 	});
 
 	socket.on('disconnect', function() {
-		console.log('disconnected.');
+		console.log('%s disconnected.', socket.id);
+		if ( 'web' === socket.handshake.query.type) {
+			webSockets.splice(findIndex(webSockets, {
+				id: socket.id
+			}), 1);
+		}
 	});
 });
