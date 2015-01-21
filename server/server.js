@@ -43,8 +43,9 @@ nsp.on('connection', function (socket) {
 		webSockets.push(socket);
 	}
 
-	socket.on('client:emitFrame', function (data) {
+	socket.on('client:emitFrame', function (data, done) {
 		// console.log('received.');
+		done();
 		webSockets.forEach(function (socket) {
 			if (socket.isEmitting) return socket.numOfSkipFrames++;
 			socket.isEmitting = true;

@@ -8,8 +8,12 @@ module.exports = function (socket, interval) {
 		path.resolve(__dirname + '/test2.jpg'),
 	];
 	var i = 1;
+	var isEmiting = false;
+	var numOfSkipFrames = 0;
 	console.log('start emitting test frames ...');	
 	function emitImage() {
+		if (isEmiting) return numOfSkipFrames++;
+		isEmitting = true;
 		// console.log('client:emitImage ' + imgs[i]);
 		i = i^1;
 
@@ -18,6 +22,10 @@ module.exports = function (socket, interval) {
 			socket.emit('client:emitFrame', {
 				name: imgs[i],
 				buf: buf
+			}, function() {
+				console.log('%s has skipped %s frames.', socket.id, numOfSkipFrames);
+				isEmitting = false;
+				numOfSkipFrames = 0;
 			});
 		});
 	};
