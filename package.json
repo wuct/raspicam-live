@@ -11,7 +11,7 @@
     "start:watch": "parallelshell 'npm run watch:bundle' 'npm run watch:server'",
     "watch:bundle": "webpack-dev-server -c --inline",
     "watch:server": "NODE_ENV=dev nodemon -w server/",
-    "prerelease": "npm run build:bundle && git commit -a",
+    "prerelease": "npm run build:bundle && git commit -a -m release",
     "release": "git push heroku master"
   },
   "repository": {
