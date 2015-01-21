@@ -28,6 +28,9 @@
     "url": "https://github.com/wuct/raspicam-live/issues"
   },
   "homepage": "https://github.com/wuct/raspicam-live",
+  "engines": {
+    "node": "0.10.x"
+  },
   "dependencies": {
     "socket.io": "^1.2.1",
     "socket.io-client": "^1.2.1",
