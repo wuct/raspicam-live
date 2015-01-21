@@ -22,7 +22,7 @@ app.get('/', function (req, res) {
 	res.send(indexHtml);
 });
 app.get('/dist/bundle.js', function (req, res) {
-	res.sendFile(path.resolve('./../web/dist/bundle.js'));
+	res.sendFile(path.resolve(__dirname + '/../web/dist/bundle.js'));
 });
 
 
