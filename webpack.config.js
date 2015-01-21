@@ -1,5 +1,5 @@
 module.exports = {
-	context: __dirname + "/src",
+	context: __dirname + "/web/src",
 	entry: "./entry.js",
 	output: {
 		publicPath: "http://local.host:8080/dist/",
