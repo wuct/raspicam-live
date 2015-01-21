@@ -1,0 +1,25 @@
+{
+  "name": "raspicam-live",
+  "version": "1.0.0",
+  "description": "It's a live streaming webcam built around Raspberry, Node.js, Socket.io and React.",
+  "main": "server/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wuct/raspicam-live.git"
+  },
+  "keywords": [
+    "raspberry",
+    "node",
+    "socketio",
+    "react"
+  ],
+  "author": "wuct",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wuct/raspicam-live/issues"
+  },
+  "homepage": "https://github.com/wuct/raspicam-live"
+}
