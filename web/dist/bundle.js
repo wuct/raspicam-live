@@ -66,7 +66,7 @@
 			var that = this;
 			
 			// sockei.io setup
-			var socket = io(':' + 80 +'/stream', {
+			var socket = io('/stream', {
 				query: "type=web",
 				transports: ['websocket']
 			});
