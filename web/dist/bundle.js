@@ -65,7 +65,7 @@
 			var that = this;
 			
 			// sockei.io setup
-			var socket = io(':' + prot +'/stream', {
+			var socket = io(':' + port +'/stream', {
 				query: "type=web",
 				transports: ['websocket']
 			});
@@ -543,9 +543,9 @@
 	var parser = __webpack_require__(36);
 	var on = __webpack_require__(38);
 	var bind = __webpack_require__(100);
-	var object = __webpack_require__(101);
+	var object = __webpack_require__(102);
 	var debug = __webpack_require__(37)('socket.io-client:manager');
-	var indexOf = __webpack_require__(102);
+	var indexOf = __webpack_require__(101);
 	var Backoff = __webpack_require__(103);
 
 	/**
@@ -11217,7 +11217,7 @@
 	var EventConstants = __webpack_require__(43);
 	var EventPropagators = __webpack_require__(121);
 	var ExecutionEnvironment = __webpack_require__(34);
-	var SyntheticInputEvent = __webpack_require__(122);
+	var SyntheticInputEvent = __webpack_require__(124);
 
 	var keyOf = __webpack_require__(56);
 
@@ -11444,10 +11444,10 @@
 	var EventPropagators = __webpack_require__(121);
 	var ExecutionEnvironment = __webpack_require__(34);
 	var ReactUpdates = __webpack_require__(48);
-	var SyntheticEvent = __webpack_require__(123);
+	var SyntheticEvent = __webpack_require__(122);
 
 	var isEventSupported = __webpack_require__(63);
-	var isTextInputElement = __webpack_require__(124);
+	var isTextInputElement = __webpack_require__(123);
 	var keyOf = __webpack_require__(56);
 
 	var topLevelTypes = EventConstants.topLevelTypes;
@@ -13744,10 +13744,10 @@
 	var EventConstants = __webpack_require__(43);
 	var EventPropagators = __webpack_require__(121);
 	var ReactInputSelection = __webpack_require__(125);
-	var SyntheticEvent = __webpack_require__(123);
+	var SyntheticEvent = __webpack_require__(122);
 
 	var getActiveElement = __webpack_require__(138);
-	var isTextInputElement = __webpack_require__(124);
+	var isTextInputElement = __webpack_require__(123);
 	var keyOf = __webpack_require__(56);
 	var shallowEqual = __webpack_require__(139);
 
@@ -13979,7 +13979,7 @@
 	var EventPluginUtils = __webpack_require__(12);
 	var EventPropagators = __webpack_require__(121);
 	var SyntheticClipboardEvent = __webpack_require__(140);
-	var SyntheticEvent = __webpack_require__(123);
+	var SyntheticEvent = __webpack_require__(122);
 	var SyntheticFocusEvent = __webpack_require__(141);
 	var SyntheticKeyboardEvent = __webpack_require__(142);
 	var SyntheticMouseEvent = __webpack_require__(128);
@@ -15494,6 +15494,21 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	
+	var indexOf = [].indexOf;
+
+	module.exports = function(arr, obj){
+	  if (indexOf) return arr.indexOf(obj);
+	  for (var i = 0; i < arr.length; ++i) {
+	    if (arr[i] === obj) return i;
+	  }
+	  return -1;
+	};
+
+/***/ },
+/* 102 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
 	/**
 	 * HOP ref.
 	 */
@@ -15576,21 +15591,6 @@
 
 	exports.isEmpty = function(obj){
 	  return 0 == exports.length(obj);
-	};
-
-/***/ },
-/* 102 */
-/***/ function(module, exports, __webpack_require__) {
-
-	
-	var indexOf = [].indexOf;
-
-	module.exports = function(arr, obj){
-	  if (indexOf) return arr.indexOf(obj);
-	  for (var i = 0; i < arr.length; ++i) {
-	    if (arr[i] === obj) return i;
-	  }
-	  return -1;
 	};
 
 /***/ },
@@ -17509,57 +17509,6 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
-	 * Copyright 2013 Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule SyntheticInputEvent
-	 * @typechecks static-only
-	 */
-
-	"use strict";
-
-	var SyntheticEvent = __webpack_require__(123);
-
-	/**
-	 * @interface Event
-	 * @see http://www.w3.org/TR/2013/WD-DOM-Level-3-Events-20131105
-	 *      /#events-inputevents
-	 */
-	var InputEventInterface = {
-	  data: null
-	};
-
-	/**
-	 * @param {object} dispatchConfig Configuration used to dispatch this event.
-	 * @param {string} dispatchMarker Marker identifying the event target.
-	 * @param {object} nativeEvent Native browser event.
-	 * @extends {SyntheticUIEvent}
-	 */
-	function SyntheticInputEvent(
-	  dispatchConfig,
-	  dispatchMarker,
-	  nativeEvent) {
-	  SyntheticEvent.call(this, dispatchConfig, dispatchMarker, nativeEvent);
-	}
-
-	SyntheticEvent.augmentClass(
-	  SyntheticInputEvent,
-	  InputEventInterface
-	);
-
-	module.exports = SyntheticInputEvent;
-
-
-
-/***/ },
-/* 123 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
 	 * Copyright 2013-2014, Facebook, Inc.
 	 * All rights reserved.
 	 *
@@ -17718,7 +17667,7 @@
 
 
 /***/ },
-/* 124 */
+/* 123 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -17763,6 +17712,57 @@
 	}
 
 	module.exports = isTextInputElement;
+
+
+/***/ },
+/* 124 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013 Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule SyntheticInputEvent
+	 * @typechecks static-only
+	 */
+
+	"use strict";
+
+	var SyntheticEvent = __webpack_require__(122);
+
+	/**
+	 * @interface Event
+	 * @see http://www.w3.org/TR/2013/WD-DOM-Level-3-Events-20131105
+	 *      /#events-inputevents
+	 */
+	var InputEventInterface = {
+	  data: null
+	};
+
+	/**
+	 * @param {object} dispatchConfig Configuration used to dispatch this event.
+	 * @param {string} dispatchMarker Marker identifying the event target.
+	 * @param {object} nativeEvent Native browser event.
+	 * @extends {SyntheticUIEvent}
+	 */
+	function SyntheticInputEvent(
+	  dispatchConfig,
+	  dispatchMarker,
+	  nativeEvent) {
+	  SyntheticEvent.call(this, dispatchConfig, dispatchMarker, nativeEvent);
+	}
+
+	SyntheticEvent.augmentClass(
+	  SyntheticInputEvent,
+	  InputEventInterface
+	);
+
+	module.exports = SyntheticInputEvent;
+
 
 
 /***/ },
@@ -17923,7 +17923,7 @@
 
 	"use strict";
 
-	var SyntheticEvent = __webpack_require__(123);
+	var SyntheticEvent = __webpack_require__(122);
 
 	/**
 	 * @interface Event
@@ -19048,7 +19048,7 @@
 
 	"use strict";
 
-	var SyntheticEvent = __webpack_require__(123);
+	var SyntheticEvent = __webpack_require__(122);
 
 	/**
 	 * @interface Event
@@ -19327,7 +19327,7 @@
 
 	"use strict";
 
-	var SyntheticEvent = __webpack_require__(123);
+	var SyntheticEvent = __webpack_require__(122);
 
 	var getEventTarget = __webpack_require__(136);
 
@@ -21602,7 +21602,7 @@
 	var transports = __webpack_require__(174);
 	var Emitter = __webpack_require__(99);
 	var debug = __webpack_require__(180)('engine.io-client:socket');
-	var index = __webpack_require__(102);
+	var index = __webpack_require__(101);
 	var parser = __webpack_require__(173);
 	var parseuri = __webpack_require__(177);
 	var parsejson = __webpack_require__(178);
