@@ -44,10 +44,10 @@ nsp.on('connection', function (socket) {
 		// console.log(data);
 		// nsp.to('web').emit('server:emitFrame', data);
 		if (isEmitting) return numOfSkipFrames++;
-		emitting = true;
+		isEmitting = true;
 		process.nextTick(function() {
 			nsp.to('web').emit('server:emitFrame', data);
-			emitting = false;
+			isEmitting = false;
 			console.log('has skipped ' + numOfSkipFrames + ' frames.');
 		});
 	});
