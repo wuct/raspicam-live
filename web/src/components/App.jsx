@@ -1,6 +1,6 @@
 var React = require('react');
 var io = require('socket.io-client');
-var port = port || 3000;
+var serverPort = serverPort || 3000;
 var VideoPlayer = require('./VideoPlayer.jsx');
 
 var App = React.createClass({
@@ -13,7 +13,7 @@ var App = React.createClass({
 		var that = this;
 		
 		// sockei.io setup
-		var socket = io(':' + port +'/stream', {
+		var socket = io(':' + serverPort +'/stream', {
 			query: "type=web",
 			transports: ['websocket']
 		});
