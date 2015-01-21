@@ -1,5 +1,5 @@
 // start server
-var port = process.env.PORT || 3000
+var port = process.env.PORT || 3000;
 var app = require('express')();
 var server = require('http').Server(app);
 var path = require('path');

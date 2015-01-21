@@ -1,6 +1,5 @@
 var React = require('react');
 var io = require('socket.io-client');
-var serverPort = serverPort || 3000;
 var VideoPlayer = require('./VideoPlayer.jsx');
 
 var App = React.createClass({
@@ -10,6 +9,8 @@ var App = React.createClass({
 		}
 	},
 	componentDidMount: function() {
+		var serverPort = serverPort || 3000;
+		console.log('start listen on %s.', port);
 		var that = this;
 		
 		// sockei.io setup
