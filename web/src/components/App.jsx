@@ -13,7 +13,7 @@ var App = React.createClass({
 		var that = this;
 		
 		// sockei.io setup
-		var socket = io('/stream', {
+		var socket = io(':3000/stream', {
 			query: "type=web",
 			transports: ['websocket']
 		});

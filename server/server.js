@@ -13,6 +13,7 @@ server.listen(port, function() {
 // render index.html
 var template = fs.readFileSync(path.resolve(__dirname + '/index.ejs'), { encoding: 'utf-8' });
 var indexHtml = ejs.render(template, {
+	port: port,
 	pathToBundle: process.env.NODE_ENV !== 'dev'
 		? '/dist/bundle.js'
 		: 'http://local.host:8080/dist/bundle.js'
@@ -29,17 +30,26 @@ app.get('/dist/bundle.js', function (req, res) {
 // socket.io setup
 var io = require('socket.io')(server);
 var nsp = io.of('/stream');
+var isEmitting = false;
+var numOfSkipFrames = 0;
 nsp.on('connection', function (socket) {
 	// register web user
-	// console.log(socket.handshake.query);
+	console.log(socket.handshake.query);
 	if ( 'web' === socket.handshake.query.type) {
 		socket.join('web');
 	}
 
 	socket.on('client:emitFrame', function (data) {
-		// console.log('receiving')
+		// console.log('received.');
 		// console.log(data);
-		nsp.to('web').emit('server:emitFrame', data);
+		// nsp.to('web').emit('server:emitFrame', data);
+		if (isEmitting) return numOfSkipFrames++;
+		emitting = true;
+		process.nextTick(function() {
+			nsp.to('web').emit('server:emitFrame', data);
+			emitting = false;
+			numOfSkipFrames && console.log('has skipped ' + numOfSkipFrames + ' frames.');
+		});
 	});
 
 	socket.on('disconnect', function() {

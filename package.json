@@ -5,12 +5,12 @@
   "main": "server/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server -c --inline",
     "clean": "rm -r -f web/dist/*",
     "build:bundle": "npm run clean && webpack",
     "start": "node server/server",
-    "start:watch": "parallelshell 'NODE_ENV=dev node server/server' 'npm run dev'"
-    
+    "start:watch": "parallelshell 'npm run watch:bundle' 'npm run watch:server'",
+    "watch:bundle": "webpack-dev-server -c --inline",
+    "watch:server": "NODE_ENV=dev nodemon -w server/"
   },
   "repository": {
     "type": "git",
@@ -41,7 +41,8 @@
   },
   "devDependencies": {
     "jsx-loader": "^0.12.2",
-    "webpack": "^1.5.1",
-    "parallelshell": "^1.0.3"
+    "nodemon": "^1.3.2",
+    "parallelshell": "^1.0.3",
+    "webpack": "^1.5.1"
   }
 }

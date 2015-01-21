@@ -9,7 +9,7 @@ var socket = require('socket.io-client')(SERVER_URL + '/stream', {
 });
 
 // startCamera();
-
+console.log('start connecting to %s.', SERVER_URL);
 socket.on('connect_error', function(){
 	console.log('Connection Failed');
 });
