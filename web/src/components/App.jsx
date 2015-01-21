@@ -10,7 +10,7 @@ var App = React.createClass({
 	},
 	componentDidMount: function() {
 		var serverPort = serverPort || 3000;
-		console.log('start listen on %s.', port);
+		console.log('start listen on %s.', serverPort);
 		var that = this;
 		
 		// sockei.io setup
