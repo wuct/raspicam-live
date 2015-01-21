@@ -13,7 +13,7 @@ module.exports = function (socket, interval) {
 	console.log('start emitting test frames ...');	
 	function emitImage() {
 		if (isEmiting) return numOfSkipFrames++;
-		isEmitting = true;
+		isEmiting = true;
 		// console.log('client:emitImage ' + imgs[i]);
 		i = i^1;
 
@@ -23,8 +23,8 @@ module.exports = function (socket, interval) {
 				name: imgs[i],
 				buf: buf
 			}, function() {
-				console.log('%s has skipped %s frames.', socket.id, numOfSkipFrames);
-				isEmitting = false;
+				console.log('has skipped %s frames.', numOfSkipFrames);
+				isEmiting = false;
 				numOfSkipFrames = 0;
 			});
 		});
