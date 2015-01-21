@@ -48,7 +48,7 @@ nsp.on('connection', function (socket) {
 		process.nextTick(function() {
 			nsp.to('web').emit('server:emitFrame', data);
 			emitting = false;
-			numOfSkipFrames && console.log('has skipped ' + numOfSkipFrames + ' frames.');
+			console.log('has skipped ' + numOfSkipFrames + ' frames.');
 		});
 	});
 
