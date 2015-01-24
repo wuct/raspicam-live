@@ -3,33 +3,39 @@ var io = require('socket.io-client');
 var VideoPlayer = require('./VideoPlayer.jsx');
 
 var App = React.createClass({
-	getInitialState: function() {
+	getInitialState () {
 		return {
-			buf: []
+			buf: [],
+			fps: 0
 		}
 	},
-	componentDidMount: function() {
-		console.log('start listen on %s.', socketServerUrl);
-		var that = this;
+	componentDidMount () {
+		console.log(`start listen on ${socketServerUrl}.`);
 			
 		// sockei.io setup
 		var socket = io(socketServerUrl, {
 			query: "type=web",
 			transports: ['websocket']
 		});
-
-		socket.on('server:emitFrame', function (data, done) {
+		var lastEmitAt = Date.now();
+		socket.on('server:emitFrame', (data, done) => {
 			// console.log('received data', data);
-			that.setState({ buf: data.buf });
+			this.setState({
+				buf: data.buf,
+				fps:  ~~(1e5/(Date.now() - lastEmitAt))/1e2
+			});
+			lastEmitAt = Date.now();
 			done();
 		});
 	},
 
-	render: function() {
+	render () {
 		return (
 			<div>
 				<h1>Raspicam Live Beta</h1>
-				<VideoPlayer buf={this.state.buf} />
+				<VideoPlayer
+					fps={this.state.fps}
+					buf={this.state.buf} />
 			</div>
 		);
 	}
