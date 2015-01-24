@@ -7,7 +7,9 @@ var VideoPlayer = React.createClass({
 	render() {
 		return (
 			<div>
-				<FPS fps={this.props.fps}/>
+				<div style={{width: 90, textAlign: 'right'}}>
+					<FPS fps={this.props.fps}/>
+				</div>
 				<Screen buf={this.props.buf}/>
 			</div>
 		);
