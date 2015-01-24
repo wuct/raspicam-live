@@ -44,8 +44,7 @@ nsp.on('connection', function (socket) {
 	}
 
 	socket.on('client:emitFrame', function (data, done) {
-		// console.log('received.');
-		done();
+		done(); // To call this callback let the client knows we have received this frame.  
 		webSockets.forEach(function (socket) {
 			if (socket.isEmitting) return socket.numOfSkipFrames++;
 			socket.isEmitting = true;

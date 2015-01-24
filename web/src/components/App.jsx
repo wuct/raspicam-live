@@ -3,13 +3,13 @@ var io = require('socket.io-client');
 var VideoPlayer = require('./VideoPlayer.jsx');
 
 var App = React.createClass({
-	getInitialState () {
+	getInitialState() {
 		return {
 			buf: [],
 			fps: 0
 		}
 	},
-	componentDidMount () {
+	componentDidMount() {
 		console.log(`start listen on ${socketServerUrl}.`);
 			
 		// sockei.io setup
@@ -19,17 +19,16 @@ var App = React.createClass({
 		});
 		var lastEmitAt = Date.now();
 		socket.on('server:emitFrame', (data, done) => {
-			// console.log('received data', data);
+			done(); // To call this callback let the server knows we have received this frame.  
 			this.setState({
 				buf: data.buf,
 				fps:  ~~(1e5/(Date.now() - lastEmitAt))/1e2
 			});
 			lastEmitAt = Date.now();
-			done();
 		});
 	},
 
-	render () {
+	render() {
 		return (
 			<div>
 				<h1>Raspicam Live Beta</h1>

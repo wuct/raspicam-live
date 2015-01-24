@@ -1,7 +1,6 @@
 var React = require('react');
 
 var FPS = React.createClass({
-
 	render() {
 		return (
 			<span>
