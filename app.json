@@ -1,0 +1,18 @@
+{
+  "name": "raspicam-live",
+  "description": "t's a live streaming webcam built around Raspberry, Node.js, Socket.io and React.",
+  "keywords": [
+    "raspicam",
+    "raspberry",
+    "node.js",
+    "node",
+    "socket.io",
+    "react",
+    "webcam"
+  ],
+  "addons": [],
+  "env": {
+    "PORT": "80",
+    "NODE_ENV": "production"
+  }
+}
