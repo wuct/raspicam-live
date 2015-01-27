@@ -1,6 +1,6 @@
 {
   "name": "raspicam-live",
-  "description": "t's a live streaming webcam built around Raspberry, Node.js, Socket.io and React.",
+  "description": "It's a live streaming webcam built around Raspberry, Node.js, Socket.io and React.",
   "keywords": [
     "raspicam",
     "raspberry",

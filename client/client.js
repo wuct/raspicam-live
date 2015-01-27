@@ -2,7 +2,7 @@
 var TEST_MODE = process.argv[2] === 'test' // flag for test mode
 var TEST_INTERVAL = process.argv[3] || 1000;
 
-var SERVER_URL = process.env.SERVER_URL || 'http://local.host:3000';
+var SERVER_URL = process.env.SERVER_URL || 'http://localhost:3000';
 var socket = require('socket.io-client')(SERVER_URL + '/stream', {
 		query: "type=client",
 		transports: ['websocket']
