@@ -4,7 +4,7 @@ It's a live streaming webcam built around Raspberry, Node.js, Socket.io and Reac
 [部落格](http://blog.craftbeer.tw/make-your-own-dropcam-with-raspberry-pi-and-node-js/)
 
 ## To Use
-![structure]()
+![structure](http://blog.craftbeer.tw/content/images/2015/01/raspicam-structure-001-4.jpg)
 
 
 ### Server
