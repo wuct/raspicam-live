@@ -26,7 +26,7 @@ Specify a url of a server.
 
 	SERVER_URL=http://example.com node client/client
 
-In addition, this command accepts two arguments: test-mode flag and timelapse (default to 150 ms). A client will emit the image files in the `client/lib` folder instead of taking pictures from a raspicam. It's useful when you want to test a server without a rapicam.
+In addition, this command accepts two arguments: test-mode flag and timelapse (default to 150 ms). By enabling test mode, a client will emit the image files in the `client/lib` folder instead of taking pictures from a raspicam. It's useful when you want to test a server without a rapicam.
 
 	# To take photos every 1000 ms
 	node client/client 1000
